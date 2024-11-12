@@ -42,7 +42,9 @@ end
 
 #search 50000, 4, 600
 
-$probs = {}
+$probs = File.exists?('cache') ? Marshal.load(File.open('cache', 'rb'){|f|f.read}) : Array.new(20){[]}
+$diff = false
+puts 'ready'
 
 # **nokill
 # $shouldkill = {}
@@ -52,7 +54,8 @@ $probs = {}
 def prob demons, towns
     return 1 if demons == 0
     return 0 if towns <= demons
-    return $probs[[demons,towns]] if $probs[[demons,towns]]
+    return $probs[demons][towns] if $probs[demons][towns]
+    $diff = true
 
     # demon tech, town tech
     yeskill =
@@ -85,7 +88,7 @@ def prob demons, towns
     #     # puts $log
     # end
 
-    $probs[[demons,towns]] = yeskill < nokill ? nokill : yeskill
+    $probs[demons][towns] = yeskill < nokill ? nokill : yeskill
 end
 
 def dstrat demons, towns
@@ -139,7 +142,7 @@ def describe arr
     diffs = arr.each_cons(2).map{|x,y|y-x}.reverse
     len = (1..diffs.size/3).find{|len|
         slices = diffs.each_slice len
-        slices.take(slices.size/2).uniq.size == 1
+        slices.take(slices.size/4).uniq.size == 1
     }
     if len
         mod = diffs.take(len).sum
@@ -175,17 +178,18 @@ def describe2 arr, mod
     p intervals
 end
 
-dn = 4
+dn = 3
 nums = Hash.new{|h,k| h[k] = []}
-(dn*2..600000).each do |tn|
+(dn*2..8000000).each do |tn|
     puts tn if tn%10000==0
     dst = dstrat dn, tn
     nums[dst].push tn unless dst == dn
 end
 nums.sort.each do |dst, tns|
     print "kill #{dst}: "
-    describe2 tns, 20
+    describe2 tns, 12
 end
+File.open('cache', 'wb'){|f| f.write Marshal.dump $probs } if $diff
 exit
 
 dn = 2

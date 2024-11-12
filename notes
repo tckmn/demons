@@ -129,3 +129,17 @@ kill 1: {8=>[[8, 8]]}
 kill 2: {9=>[[9, 9]], 12=>[[2972, 599992]], 17=>[[2977, 599997]]}
 kill 3: {10=>[[10, 10]], 12=>[[12, 12]], 13=>[[2813, 599993]], 18=>[[2818, 599998]], 2=>[[2982, 599982]], 8=>[[5828, 599988]]}
 
+
+--- C STUFF BELOW ---
+
+
+
+nokill from d=1 t=3 (1 mod 2)
+nokill from d=2 t=26 (2 mod 3)
+nokill from d=3 t=1144 (4 mod 12)
+nokill from d=3 t=1152 (0 mod 12)
+nokill from d=3 t=31268 (8 mod 12)
+nokill from d=4 t=1121090 (10 mod 20)
+nokill from d=4 t=1121095 (15 mod 20)
+nokill from d=4 t=1320025 (5 mod 20)
+
