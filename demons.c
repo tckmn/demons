@@ -9,9 +9,9 @@
 /* #define MAXT 1000000 */
 
 #define MAXD 4
-#define MAXT 40000000
+#define MAXT 120000000
 
-#define P(d,t) probs[((d)-1)*MAXT+((t)-1)]
+#define P(d,t) probs[((d)-1)*(MAXD+1) + (((t)-1) % (MAXD+1))]
 
 int main(void) {
     mpf_set_default_prec(200);
@@ -19,15 +19,14 @@ int main(void) {
     int nokilldata[6*60];
     for (int i = 0; i < 6*60; ++i) nokilldata[i] = -1;
 
-    mpf_t *probs = calloc(MAXD * MAXT, sizeof *probs);
+    mpf_t probs[MAXD * (MAXD+1)];
     mpf_t dkill, tkill, nkill;
+    for (int i = 0; i < MAXD * (MAXD+1); ++i) mpf_init(probs[i]);
     mpf_init(dkill); mpf_init(tkill); mpf_init(nkill);
 
-    for (int d = 1; d <= MAXD; ++d) {
-        printf("processing d=%d\n", d);
-        for (int t = 1; t <= MAXT; ++t) {
-            mpf_init(P(d,t));
-
+    for (int t = 1; t <= MAXT; ++t) {
+        if (t % 1000000 == 0) printf("at t=%d\n", t);
+        for (int d = 1; d <= MAXD; ++d) {
             if (t - d + 1 <= d - 1) {
                 mpf_set_ui(dkill, 0);
             } else {
