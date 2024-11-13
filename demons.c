@@ -39,7 +39,6 @@ int main(void) {
                 }
             }
             mpf_mul_ui(dkill, dkill, d);
-            mpf_div_ui(dkill, dkill, d+t);
 
             if (t - d - 1 <= d) {
                 mpf_set_ui(tkill, 0);
@@ -54,7 +53,6 @@ int main(void) {
                 }
             }
             mpf_mul_ui(tkill, tkill, t);
-            mpf_div_ui(tkill, tkill, d+t);
 
             if (t - d <= d) {
                 mpf_set_ui(nkill, 0);
@@ -70,6 +68,7 @@ int main(void) {
             }
 
             mpf_add(P(d,t), dkill, tkill);
+            mpf_div_ui(P(d,t), P(d,t), d+t);
             if (mpf_cmp(P(d,t), nkill) < 0) {
                 if (nokilldata[d*60 + (t%nokillmods[d])] == -1) {
                     nokilldata[d*60 + (t%nokillmods[d])] = t;
