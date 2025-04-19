@@ -142,6 +142,9 @@ nokill from d=3 t=31268 (8 mod 12)
 nokill from d=4 t=1121090 (10 mod 20)
 nokill from d=4 t=1121095 (15 mod 20)
 nokill from d=4 t=1320025 (5 mod 20)
+nokill from d=5 t=573193737 (27 mod 30)
+nokill from d=5 t=573193743 (3 mod 30)
+nokill from d=5 t=573193749 (9 mod 30)
 
 
 P(d=1,t=5) = 4.6666666666666666666666666666666666666666666666666666666666700e-1
@@ -172,3 +175,203 @@ P(d=13,t=14909789) = 4.999999939951176917914184158854507849591746912822916575134
 P(d=13,t=14909790) = 5.0000000014911895752030055247777726228541991804833872048484236e-1
 P(d=14,t=43794248) = 4.9999999916109129471282909399361875460755407451624000781364295e-1
 P(d=14,t=43794249) = 5.0000000119478558699058046340544768962697276444707436231742562e-1
+
+
+
+
+
+stupidity below
+
+underkill 1 from d=2 t=5 (2 mod 3)
+underkill broken at d=2 t=8 (2 mod 3)
+underkill 1 from d=2 t=11 (2 mod 3)
+underkill broken at d=2 t=14 (2 mod 3)
+underkill 1 from d=2 t=17 (2 mod 3)
+
+5, 11, 17+
+(5+ but skip 8 and 14)
+
+
+underkill 2 from d=3 t=8 (8 mod 12)
+underkill 2 from d=3 t=12 (0 mod 12)
+underkill broken at d=3 t=20 (8 mod 12)
+underkill broken at d=3 t=24 (0 mod 12)
+underkill 2 from d=3 t=120 (0 mod 12)
+underkill 2 from d=3 t=128 (8 mod 12)
+underkill changed from 2 to 1 at d=3 t=1040 (8 mod 12)
+underkill 2 from d=3 t=1041 (9 mod 12)
+underkill 1 from d=3 t=1048 (4 mod 12)
+underkill 2 from d=3 t=1049 (5 mod 12)
+underkill 2 from d=3 t=1154 (2 mod 12)
+underkill changed from 2 to 1 at d=3 t=31284 (0 mod 12)
+underkill 2 from d=3 t=31285 (1 mod 12)
+underkill broken at d=3 t=31286 (2 mod 12)
+
+
+kill 2 on 8, 12
+
+0   kill 2 on 120-31272,    kill 1 on 31284+
+1   kill 2 on 31285+
+2   kill 2 on 1154-31286
+3
+4                   kill 1 on 1048+
+5   kill 2 on 1049+
+6
+7
+8   kill 2 on 128-1028,     kill 1 on 1040+
+9   kill 2 on 1041+
+10
+11
+
+
+0   kill 2 on 120-31272,    kill 1 on 31284+    [town nokill 1152+]
+4                           kill 1 on 1048+     [town nokill 1144+]
+8   kill 2 on 128-1028,     kill 1 on 1040+     [town nokill 31268+]
+
+1   kill 2 on 31285+
+5   kill 2 on 1049+
+9   kill 2 on 1041+
+
+2   kill 2 on 1154-31286
+6
+10
+
+3
+7
+11
+
+
+underkill 3 from d=4 t=12 (12 mod 20)
+underkill broken at d=4 t=32 (12 mod 20)
+underkill 3 from d=4 t=2813 (13 mod 20)
+underkill 3 from d=4 t=2818 (18 mod 20)
+underkill 2 from d=4 t=2972 (12 mod 20)
+underkill 2 from d=4 t=2977 (17 mod 20)
+underkill 3 from d=4 t=2982 (2 mod 20)
+underkill 3 from d=4 t=5828 (8 mod 20)
+underkill 2 from d=4 t=691201 (1 mod 20)
+underkill 3 from d=4 t=691206 (6 mod 20)
+underkill 1 from d=4 t=691211 (11 mod 20)
+underkill 1 from d=4 t=691216 (16 mod 20)
+underkill 2 from d=4 t=1121085 (5 mod 20)
+underkill 1 from d=4 t=1121090 (10 mod 20)
+underkill changed from 1 to 2 at d=4 t=1121091 (11 mod 20)
+underkill changed from 2 to 3 at d=4 t=1121092 (12 mod 20)
+underkill broken at d=4 t=1121093 (13 mod 20)
+underkill 1 from d=4 t=1121095 (15 mod 20)
+underkill changed from 1 to 2 at d=4 t=1121096 (16 mod 20)
+underkill changed from 2 to 3 at d=4 t=1121097 (17 mod 20)
+underkill broken at d=4 t=1121098 (18 mod 20)
+underkill 1 from d=4 t=1121100 (0 mod 20)
+
+kill 3 on 12
+
+0                       kill 1 on 1121100
+5                       kill 2 on 1121085   [town nokill 1320025]
+10                      kill 1 on 1121090   [town nokill 1121090]
+15                      kill 1 on 1121095   [town nokill 1121095]
+
+1   kill 2 on 691201
+6   kill 3 on 691206
+11  kill 1 on 691211    kill 2 on 1121091
+16  kill 1 on 691216    kill 2 on 1121096
+
+2   kill 3 on 2982
+7
+12  kill 2 on 2972      kill 3 on 1121092
+17  kill 2 on 2977      kill 2 on 1121097
+
+3
+8   kill 3 on 5828
+13  kill 3 on 2813      kill 4 on 1121093
+18  kill 3 on 2818      kill 4 on 1121098
+
+4
+9
+14
+19
+
+
+
+underkill 4 from d=5 t=17423 (23 mod 30)
+underkill 4 from d=5 t=17429 (29 mod 30)
+underkill 4 from d=5 t=17435 (5 mod 30)
+underkill 4 from d=5 t=17447 (17 mod 30)
+underkill broken at d=5 t=109949 (29 mod 30)
+underkill 4 from d=5 t=114461 (11 mod 30)
+underkill 4 from d=5 t=172863 (3 mod 30)
+underkill 4 from d=5 t=172875 (15 mod 30)
+underkill 4 from d=5 t=172881 (21 mod 30)
+underkill 4 from d=5 t=172887 (27 mod 30)
+underkill broken at d=5 t=432845 (5 mod 30)
+underkill broken at d=5 t=432855 (15 mod 30)
+underkill 4 from d=5 t=563773 (13 mod 30)
+underkill 4 from d=5 t=563791 (1 mod 30)
+underkill 4 from d=5 t=563797 (7 mod 30)
+underkill changed from 4 to 2 at d=5 t=1099301 (11 mod 30)
+underkill 3 from d=5 t=1099302 (12 mod 30)
+underkill changed from 4 to 3 at d=5 t=1099307 (17 mod 30)
+underkill 4 from d=5 t=1099308 (18 mod 30)
+underkill 3 from d=5 t=1099320 (0 mod 30)
+underkill 2 from d=5 t=1099325 (5 mod 30)
+underkill 3 from d=5 t=1099326 (6 mod 30)
+underkill 4 from d=5 t=48846055 (25 mod 30)
+underkill 2 from d=5 t=48846059 (29 mod 30)
+underkill 4 from d=5 t=48846105 (15 mod 30)
+
+kill 3 on 17, kill 4 on 18, kill 4 on 23
+
+0                       3 on 1099320
+6                       3 on 1099326                    4 on 573193746
+12                      3 on 1099302                    4 on 573193752
+18                      4 on 1099308
+24
+
+1   4 on 563791
+7   4 on 563797                                         5 on 573193747
+13  4 on 563773                                         5 on 573193753
+19
+25                                      4 on 48846055
+
+2
+8
+14
+20
+26
+
+3   4 on 172863                                         1 on 573193743
+9                                                       1 on 573193749
+15  4 on 172875-432855                  4 on 48846105   1 on 573193725
+21  4 on 172881                                         2 on 573193731
+27  4 on 172887                                         3 on 573193737
+
+4                                                       2 on 573193744
+10                                                      2 on 573193750
+16                                                      2 on 573193726
+22                                                      3 on 573193732
+28                                                      4 on 573193738
+
+5   4 on 17435-432845   2 on 1099325                    3 on 573193745
+11  4 on 114461         2 on 1099301                    3 on 573193751
+17  4 on 17447          3 on 1099307
+23  4 on 17423
+29  4 on 17429-109919                   2 on 48846059   5 on 573193739
+
+underkill changed from 4 to 1 at d=5 t=573193725 (15 mod 30)
+underkill 2 from d=5 t=573193726 (16 mod 30)
+underkill changed from 4 to 2 at d=5 t=573193731 (21 mod 30)
+underkill 3 from d=5 t=573193732 (22 mod 30)
+underkill changed from 4 to 3 at d=5 t=573193737 (27 mod 30)
+underkill 4 from d=5 t=573193738 (28 mod 30)
+underkill broken at d=5 t=573193739 (29 mod 30)
+underkill changed from 4 to 1 at d=5 t=573193743 (3 mod 30)
+underkill 2 from d=5 t=573193744 (4 mod 30)
+underkill changed from 2 to 3 at d=5 t=573193745 (5 mod 30)
+underkill changed from 3 to 4 at d=5 t=573193746 (6 mod 30)
+underkill broken at d=5 t=573193747 (7 mod 30)
+underkill 1 from d=5 t=573193749 (9 mod 30)
+underkill 2 from d=5 t=573193750 (10 mod 30)
+underkill changed from 2 to 3 at d=5 t=573193751 (11 mod 30)
+underkill changed from 3 to 4 at d=5 t=573193752 (12 mod 30)
+underkill broken at d=5 t=573193753 (13 mod 30)
+

@@ -6,17 +6,20 @@
 #include <mpfr.h>
 #include <mpf2mpfr.h>
 
-#define MAXD 15
-#define MAXT 120000000
+#define MAXD 5
+/* #define MAXT 120000000 */
 
+/* #define PRINT_TABLE 2 */
 #define PRINT_NOKILL
-#define PRINT_FAIRS
+#define PRINT_UNDERKILL
+/* #define PRINT_FAIRS */
 
 #define P(d,t) probs[((d)-1)*(MAXD+1) + (((t)-1) % (MAXD+1))]
 
 
 #if MAXD > 5
 #undef PRINT_NOKILL
+#undef PRINT_UNDERKILL
 #endif
 
 int main(void) {
@@ -26,6 +29,12 @@ int main(void) {
     int nokillmods[6] = {0, 2, 3, 12, 20, 60};
     int nokilldata[6*60];
     for (int i = 0; i < 6*60; ++i) nokilldata[i] = -1;
+#endif
+
+#ifdef PRINT_UNDERKILL
+    int underkillmods[6] = {0, 2, 3, 12, 20, 30};
+    int underkilldata[6*60];
+    for (int i = 0; i < 6*60; ++i) underkilldata[i] = -1;
 #endif
 
 #ifdef PRINT_FAIRS
@@ -40,7 +49,11 @@ int main(void) {
     struct timeval init, prev, cur;
     gettimeofday(&init, NULL); prev = init;
 
-    for (int t = 1; t <= MAXT; ++t) {
+#ifdef MAXT
+    for (unsigned int t = 1; t <= MAXT; ++t) {
+#else
+    for (unsigned int t = 1;; ++t) {
+#endif
         if (t % 1000000 == 0) {
             gettimeofday(&cur, NULL);
             unsigned long
@@ -103,6 +116,9 @@ int main(void) {
                 mpf_set_ui(nkill, 0);
             } else {
                 mpf_set_ui(nkill, 1);
+#ifdef PRINT_UNDERKILL
+                int dchoice = 0;
+#endif
                 switch (d) {
                 case 15: if (mpf_cmp(nkill, P(d,t-15)) > 0) mpf_set(nkill, P(d,t-15));
                 case 14: if (mpf_cmp(nkill, P(d,t-14)) > 0) mpf_set(nkill, P(d,t-14));
@@ -114,12 +130,34 @@ int main(void) {
                 case 8:  if (mpf_cmp(nkill, P(d,t-8))  > 0) mpf_set(nkill, P(d,t-8));
                 case 7:  if (mpf_cmp(nkill, P(d,t-7))  > 0) mpf_set(nkill, P(d,t-7));
                 case 6:  if (mpf_cmp(nkill, P(d,t-6))  > 0) mpf_set(nkill, P(d,t-6));
+#ifdef PRINT_UNDERKILL
+                case 5:  if (mpf_cmp(nkill, P(d,t-5))  > 0) { dchoice = 5; mpf_set(nkill, P(d,t-5)); }
+                case 4:  if (mpf_cmp(nkill, P(d,t-4))  > 0) { dchoice = 4; mpf_set(nkill, P(d,t-4)); }
+                case 3:  if (mpf_cmp(nkill, P(d,t-3))  > 0) { dchoice = 3; mpf_set(nkill, P(d,t-3)); }
+                case 2:  if (mpf_cmp(nkill, P(d,t-2))  > 0) { dchoice = 2; mpf_set(nkill, P(d,t-2)); }
+                case 1:  if (mpf_cmp(nkill, P(d,t-1))  > 0) { dchoice = 1; mpf_set(nkill, P(d,t-1)); }
+#else
                 case 5:  if (mpf_cmp(nkill, P(d,t-5))  > 0) mpf_set(nkill, P(d,t-5));
                 case 4:  if (mpf_cmp(nkill, P(d,t-4))  > 0) mpf_set(nkill, P(d,t-4));
                 case 3:  if (mpf_cmp(nkill, P(d,t-3))  > 0) mpf_set(nkill, P(d,t-3));
                 case 2:  if (mpf_cmp(nkill, P(d,t-2))  > 0) mpf_set(nkill, P(d,t-2));
                 case 1:  if (mpf_cmp(nkill, P(d,t-1))  > 0) mpf_set(nkill, P(d,t-1));
+#endif
                 }
+#ifdef PRINT_UNDERKILL
+                if (dchoice != d) {
+                    if (underkilldata[d*60 + (t%underkillmods[d])] == -1) {
+                        underkilldata[d*60 + (t%underkillmods[d])] = dchoice;
+                        printf("underkill %d from d=%d t=%d (%d mod %d)\n", dchoice, d, t, t%underkillmods[d], underkillmods[d]);
+                    } else if (underkilldata[d*60 + (t%underkillmods[d])] != dchoice) {
+                        printf("underkill changed from %d to %d at d=%d t=%d (%d mod %d)\n", underkilldata[d*60 + (t%underkillmods[d])], dchoice, d, t, t%underkillmods[d], underkillmods[d]);
+                        underkilldata[d*60 + (t%underkillmods[d])] = dchoice;
+                    }
+                } else if (underkilldata[d*60 + (t%underkillmods[d])] != -1) {
+                    printf("underkill broken at d=%d t=%d (%d mod %d)\n", d, t, t%underkillmods[d], underkillmods[d]);
+                    underkilldata[d*60 + (t%underkillmods[d])] = -1;
+                }
+#endif
             }
 
             mpf_add(P(d,t), dkill, tkill);
@@ -146,6 +184,13 @@ int main(void) {
                 printf("P(d=%d,t=%d) = ", d, t-1);
                 mpf_out_str(stdout, 10, 0, P(d,t-1));
                 printf("\nP(d=%d,t=%d) = ", d, t);
+                mpf_out_str(stdout, 10, 0, P(d,t));
+                printf("\n");
+            }
+#endif
+
+#ifdef PRINT_TABLE
+            if (d == PRINT_TABLE) {
                 mpf_out_str(stdout, 10, 0, P(d,t));
                 printf("\n");
             }
